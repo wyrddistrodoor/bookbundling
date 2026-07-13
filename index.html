@@ -126,23 +126,22 @@ The Hobbit</textarea>
         .filter(Boolean);
 
     function renderBundle() {
+      resultEl.textContent = "";
       const titles = parseTitles();
       const requested = Number(sizeInput.value) || 1;
-      const size = Math.max(1, Math.min(requested, titles.length || 1));
 
       if (!titles.length) {
-        resultEl.textContent = "";
         const message = document.createElement("p");
         message.textContent = "Add at least one title to build a bundle.";
         resultEl.appendChild(message);
         return;
       }
 
+      const size = Math.max(1, Math.min(requested, titles.length));
       const selected = shuffle(titles).slice(0, size);
-      resultEl.textContent = "";
 
       const intro = document.createElement("p");
-      intro.append(document.createTextNode(selected.length > 1 ? "An unlikely conversation between " : "A quiet page from "));
+      intro.append(document.createTextNode("A bundle featuring "));
 
       const first = document.createElement("strong");
       first.textContent = selected[0];
