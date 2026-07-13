@@ -131,19 +131,40 @@ The Hobbit</textarea>
       const size = Math.max(1, Math.min(requested, titles.length || 1));
 
       if (!titles.length) {
-        resultEl.innerHTML = "<p>Add at least one title to build a bundle.</p>";
+        resultEl.textContent = "";
+        const message = document.createElement("p");
+        message.textContent = "Add at least one title to build a bundle.";
+        resultEl.appendChild(message);
         return;
       }
 
       const selected = shuffle(titles).slice(0, size);
-      const intro = selected.length > 1
-        ? `An unlikely conversation between <strong>${selected[0]}</strong> and <strong>${selected[1]}</strong>.`
-        : `A quiet page from <strong>${selected[0]}</strong>.`;
+      resultEl.textContent = "";
 
-      resultEl.innerHTML = `
-        <p>${intro}</p>
-        <ul>${selected.map((t) => `<li>${t}</li>`).join("")}</ul>
-      `;
+      const intro = document.createElement("p");
+      intro.append(document.createTextNode(selected.length > 1 ? "An unlikely conversation between " : "A quiet page from "));
+
+      const first = document.createElement("strong");
+      first.textContent = selected[0];
+      intro.appendChild(first);
+
+      if (selected.length > 1) {
+        intro.append(document.createTextNode(" and "));
+        const second = document.createElement("strong");
+        second.textContent = selected[1];
+        intro.appendChild(second);
+      }
+
+      intro.append(document.createTextNode("."));
+      resultEl.appendChild(intro);
+
+      const list = document.createElement("ul");
+      selected.forEach((title) => {
+        const item = document.createElement("li");
+        item.textContent = title;
+        list.appendChild(item);
+      });
+      resultEl.appendChild(list);
     }
 
     generateBtn.addEventListener("click", renderBundle);
