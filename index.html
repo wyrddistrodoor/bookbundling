@@ -141,7 +141,7 @@ The Hobbit</textarea>
       const selected = shuffleCopy(titles).slice(0, size);
 
       const intro = document.createElement("p");
-      intro.textContent = `A bundle featuring ${selected.length} book${selected.length === 1 ? "" : "s"}.`;
+      intro.textContent = `A bundle of ${selected.length} book${selected.length === 1 ? "" : "s"}.`;
       resultEl.appendChild(intro);
 
       const list = document.createElement("ul");
