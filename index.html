@@ -110,7 +110,7 @@ The Hobbit</textarea>
     const resultEl = document.getElementById("result");
     const generateBtn = document.getElementById("generate");
 
-    const shuffle = (arr) => {
+    const shuffleCopy = (arr) => {
       const copy = arr.slice();
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -138,23 +138,10 @@ The Hobbit</textarea>
       }
 
       const size = Math.max(1, Math.min(requested, titles.length));
-      const selected = shuffle(titles).slice(0, size);
+      const selected = shuffleCopy(titles).slice(0, size);
 
       const intro = document.createElement("p");
-      intro.append(document.createTextNode("A bundle featuring "));
-
-      const first = document.createElement("strong");
-      first.textContent = selected[0];
-      intro.appendChild(first);
-
-      if (selected.length > 1) {
-        intro.append(document.createTextNode(" and "));
-        const second = document.createElement("strong");
-        second.textContent = selected[1];
-        intro.appendChild(second);
-      }
-
-      intro.append(document.createTextNode("."));
+      intro.textContent = `A bundle featuring ${selected.length} book${selected.length === 1 ? "" : "s"}.`;
       resultEl.appendChild(intro);
 
       const list = document.createElement("ul");
