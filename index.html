@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bookbundling</title>
+  <meta name="description" content="bookbundling brings unlikely conversations to life by pairing books into unexpected, thought-provoking bundles.">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f1e9;
+      --surface: rgba(255, 255, 255, 0.72);
+      --text: #1f1c1a;
+      --muted: #5e564f;
+      --primary: #2f6a58;
+      --primary-strong: #234f42;
+      --accent: #d79b49;
+      --border: rgba(31, 28, 26, 0.12);
+      --shadow: 0 24px 60px rgba(31, 28, 26, 0.12);
+      --radius: 24px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(215, 155, 73, 0.18), transparent 32%),
+        linear-gradient(180deg, #fbf7f2 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(47, 106, 88, 0.08);
+      color: var(--primary-strong);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      max-width: 40rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.65;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .button.secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .hero-panel {
+      padding: 32px;
+      display: grid;
+      gap: 16px;
+      align-content: center;
+    }
+
+    .bundle {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(31, 28, 26, 0.08);
+    }
+
+    .bundle strong,
+    .metric strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .bundle span,
+    .metric span {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .metrics,
+    .features {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 28px 0;
+    }
+
+    .metric,
+    .feature {
+      padding: 28px;
+    }
+
+    .feature h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .closing {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+      padding: 34px;
+    }
+
+    .closing h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    .closing p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .metrics,
+      .features,
+      .closing {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .metric,
+      .feature,
+      .closing {
+        padding: 28px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+      }
+
+      h1 {
+        font-size: 2.6rem;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="#top">bookbundling</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#features">Why it works</a>
+        <a href="#bundles">Bundles</a>
+        <a href="#join">Join</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <article class="card hero-copy">
+          <div class="eyebrow">For curious readers</div>
+          <h1>Unlikely conversations between the sheets of paper.</h1>
+          <p>
+            bookbundling pairs books that do not obviously belong together, so every bundle feels like a fresh dialogue.
+            Discover new themes, strange companions, and reading paths you would never have built alone.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#join">Get early access</a>
+            <a class="button secondary" href="#bundles">See sample bundles</a>
+          </div>
+        </article>
+
+        <aside class="card hero-panel" id="bundles" aria-label="Sample bundles">
+          <div class="bundle">
+            <strong>Poetry × Product Design</strong>
+            <span>For readers who want language, structure, and craft in the same sitting.</span>
+          </div>
+          <div class="bundle">
+            <strong>Mythology × Climate Writing</strong>
+            <span>Unexpected pairings that turn familiar stories into new questions.</span>
+          </div>
+          <div class="bundle">
+            <strong>Memoir × Mathematics</strong>
+            <span>Bundles built to surprise, but still grounded in a clear emotional thread.</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="metrics" aria-label="Highlights">
+        <article class="card metric">
+          <strong>Human-curated pairings</strong>
+          <span>Every set is assembled around tension, resonance, and contrast instead of category alone.</span>
+        </article>
+        <article class="card metric">
+          <strong>Short, thoughtful notes</strong>
+          <span>Each bundle explains why the books belong in conversation before you open either cover.</span>
+        </article>
+        <article class="card metric">
+          <strong>Built for discovery</strong>
+          <span>Readers find books outside their usual lane without losing the thread that keeps them reading.</span>
+        </article>
+      </section>
+
+      <section class="features" id="features" aria-label="Features">
+        <article class="card feature">
+          <h2>Curated by connection</h2>
+          <p>Bundles are chosen for the ideas they spark together, not just the shelf they came from.</p>
+        </article>
+        <article class="card feature">
+          <h2>Designed to feel editorial</h2>
+          <p>A calm, tactile presentation keeps the focus on books, tone, and the surprise of the pairing.</p>
+        </article>
+        <article class="card feature">
+          <h2>Ready for launch</h2>
+          <p>A single responsive page gives the project a polished front door while the broader product takes shape.</p>
+        </article>
+      </section>
+
+      <section class="card closing" id="join">
+        <div>
+          <h2>Start with one unexpected bundle.</h2>
+          <p>Invite early readers, validate the concept, and let the landing page introduce the idea in a single glance.</p>
+        </div>
+        <a class="button primary" href="mailto:hello@bookbundling.example">Say hello</a>
+      </section>
+    </main>
+
+    <footer>
+      bookbundling · made for curious readers and unlikely pairings
+    </footer>
+  </div>
+</body>
+</html>
