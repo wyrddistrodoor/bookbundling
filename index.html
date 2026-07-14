@@ -5,188 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>bookbundling — unlikely conversations between the sheets... of paper</title>
   <meta name="description" content="bookbundling pairs curious readers with unexpected bundles and unlikely conversations between the sheets of paper." />
-  <style>
-    :root {
-      --paper: #f6f0e6;
-      --ink: #1f1a17;
-      --muted: #6b5e53;
-      --accent: #6f4e37;
-      --accent-strong: #5a3f2c;
-      --card: #fffaf2;
-      --line: #d8c8b6;
-      --ok-bg: #e8f8ec;
-      --ok-fg: #1f5f2d;
-      --err-bg: #fdecec;
-      --err-fg: #7a1e1e;
-      --shadow: 0 10px 30px rgba(28, 19, 12, 0.08);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: radial-gradient(circle at top, #fff8ef 0%, var(--paper) 55%);
-      color: var(--ink);
-      line-height: 1.55;
-    }
-
-    main {
-      width: min(960px, 92vw);
-      margin: 3rem auto 4rem;
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 1.25rem;
-      box-shadow: var(--shadow);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2rem 1.25rem;
-    }
-
-    .kicker {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin: 0 0 0.35rem;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(1.7rem, 5vw, 2.8rem);
-      line-height: 1.1;
-    }
-
-    .hero p {
-      margin: 0.75rem auto 0;
-      max-width: 62ch;
-      color: var(--muted);
-    }
-
-    h2 {
-      margin: 0 0 0.7rem;
-      font-size: 1.35rem;
-    }
-
-    p { margin: 0.6rem 0 1rem; }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 860px) {
-      .split {
-        grid-template-columns: 1.15fr 0.85fr;
-        align-items: start;
-      }
-    }
-
-    label {
-      display: block;
-      margin: 0.85rem 0 0.35rem;
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
-
-    textarea, input, button {
-      width: 100%;
-      font: inherit;
-      color: inherit;
-      border-radius: 10px;
-      border: 1px solid #bfae9a;
-      background: #fff;
-      padding: 0.7rem 0.8rem;
-    }
-
-    textarea { resize: vertical; }
-
-    .row {
-      margin-top: 0.8rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 0.8rem;
-      align-items: end;
-    }
-
-    .btn {
-      cursor: pointer;
-      border: 0;
-      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
-      color: #fff;
-      font-weight: 700;
-      min-height: 44px;
-      padding: 0.7rem 1rem;
-    }
-
-    .btn:hover { filter: brightness(1.04); }
-
-    .result {
-      margin-top: 1rem;
-      padding-top: 0.75rem;
-      border-top: 1px dashed var(--line);
-    }
-
-    ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
-
-    .note {
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    .signup-form {
-      margin-top: 0.7rem;
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .status {
-      min-height: 1.5rem;
-      font-size: 0.92rem;
-      margin-top: 0.45rem;
-    }
-
-    .status.ok {
-      color: var(--ok-fg);
-      background: var(--ok-bg);
-      border: 1px solid #b8e7c3;
-      border-radius: 8px;
-      padding: 0.45rem 0.6rem;
-    }
-
-    .status.err {
-      color: var(--err-fg);
-      background: var(--err-bg);
-      border: 1px solid #f1bcbc;
-      border-radius: 8px;
-      padding: 0.45rem 0.6rem;
-    }
-
-    .tiny {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 0.4rem;
-    }
-
-    .hidden-trap {
-      position: absolute;
-      left: -5000px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-brand" href="#">bookbundling</a>
+    </div>
+  </header>
   <main>
     <section class="card hero">
       <p class="kicker">bookbundling</p>
@@ -246,6 +72,11 @@ The Hobbit</textarea>
       </aside>
     </section>
   </main>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>bookbundling &mdash; unlikely conversations between the sheets of paper.</p>
+    </div>
+  </footer>
 
   <script>
     const titlesInput = document.getElementById("titles");
