@@ -3,104 +3,247 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>bookbundling — commit #1</title>
+  <title>bookbundling — unlikely conversations between the sheets</title>
+  <meta name="description" content="bookbundling pairs curious readers with unexpected bundles and unlikely conversations between the sheets of paper." />
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #f6f4ef;
-      --fg: #1d1d1d;
-      --accent: #5a3d2b;
-      --card: #ffffff;
+      --paper: #f6f0e6;
+      --ink: #1f1a17;
+      --muted: #6b5e53;
+      --accent: #6f4e37;
+      --accent-strong: #5a3f2c;
+      --card: #fffaf2;
+      --line: #d8c8b6;
+      --ok-bg: #e8f8ec;
+      --ok-fg: #1f5f2d;
+      --err-bg: #fdecec;
+      --err-fg: #7a1e1e;
+      --shadow: 0 10px 30px rgba(28, 19, 12, 0.08);
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #151515;
-        --fg: #ececec;
-        --accent: #d8ab8c;
-        --card: #222;
-      }
-    }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.4;
+      font-family: Georgia, "Times New Roman", serif;
+      background: radial-gradient(circle at top, #fff8ef 0%, var(--paper) 55%);
+      color: var(--ink);
+      line-height: 1.55;
     }
+
     main {
-      max-width: 760px;
-      margin: 3rem auto;
-      padding: 0 1rem;
+      width: min(960px, 92vw);
+      margin: 3rem auto 4rem;
+      display: grid;
+      gap: 1.5rem;
     }
+
     .card {
       background: var(--card);
-      border: 1px solid rgba(128, 128, 128, 0.3);
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
     }
-    h1 { margin: 0 0 0.5rem; }
-    p { margin: 0.5rem 0 1rem; }
-    label { display: block; margin: 0.75rem 0 0.35rem; font-weight: 600; }
+
+    .hero {
+      text-align: center;
+      padding: 2rem 1.25rem;
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 0 0 0.35rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 5vw, 2.8rem);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0.75rem auto 0;
+      max-width: 62ch;
+      color: var(--muted);
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-size: 1.35rem;
+    }
+
+    p { margin: 0.6rem 0 1rem; }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 860px) {
+      .split {
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: start;
+      }
+    }
+
+    label {
+      display: block;
+      margin: 0.85rem 0 0.35rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
     textarea, input, button {
       width: 100%;
       font: inherit;
-      padding: 0.65rem 0.75rem;
-      border-radius: 8px;
-      border: 1px solid rgba(128, 128, 128, 0.35);
-      background: transparent;
       color: inherit;
+      border-radius: 10px;
+      border: 1px solid #bfae9a;
+      background: #fff;
+      padding: 0.7rem 0.8rem;
     }
+
+    textarea { resize: vertical; }
+
     .row {
+      margin-top: 0.8rem;
       display: grid;
-      gap: 0.75rem;
-      grid-template-columns: 1fr 1fr;
-      margin-top: 0.75rem;
+      grid-template-columns: 1fr auto;
+      gap: 0.8rem;
+      align-items: end;
     }
-    button {
+
+    .btn {
       cursor: pointer;
-      background: var(--accent);
-      border: none;
+      border: 0;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
       color: #fff;
       font-weight: 700;
+      min-height: 44px;
+      padding: 0.7rem 1rem;
     }
-    ul { margin: 0.75rem 0 0; padding-left: 1.1rem; }
-    .result { margin-top: 1rem; }
-    .tag {
-      display: inline-block;
-      font-size: 0.85rem;
-      border-radius: 999px;
-      border: 1px solid rgba(128, 128, 128, 0.4);
-      padding: 0.2rem 0.6rem;
+
+    .btn:hover { filter: brightness(1.04); }
+
+    .result {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--line);
+    }
+
+    ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+
+    .note {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .signup-form {
+      margin-top: 0.7rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .status {
+      min-height: 1.5rem;
+      font-size: 0.92rem;
+      margin-top: 0.45rem;
+    }
+
+    .status.ok {
+      color: var(--ok-fg);
+      background: var(--ok-bg);
+      border: 1px solid #b8e7c3;
+      border-radius: 8px;
+      padding: 0.45rem 0.6rem;
+    }
+
+    .status.err {
+      color: var(--err-fg);
+      background: var(--err-bg);
+      border: 1px solid #f1bcbc;
+      border-radius: 8px;
+      padding: 0.45rem 0.6rem;
+    }
+
+    .tiny {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .hidden-trap {
+      position: absolute;
+      left: -5000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
   <main>
-    <section class="card">
-      <h1>bookbundling <span class="tag">commit #1</span></h1>
-      <p>Paste book titles, choose a bundle size, and generate a random bundle.</p>
+    <section class="card hero">
+      <p class="kicker">bookbundling</p>
+      <h1>Unlikely conversations between the sheets of paper.</h1>
+      <p>
+        Build a random reading bundle, then join the list to hear when new curated themes and odd literary pairings arrive.
+      </p>
+    </section>
 
-      <label for="titles">Book titles (one per line)</label>
-      <textarea id="titles" rows="8">Dune
+    <section class="split">
+      <article class="card" aria-labelledby="bundle-title">
+        <h2 id="bundle-title">Create a bundle</h2>
+        <p class="note">Paste titles below (one per line), choose a bundle size, and generate your next unexpected stack.</p>
+
+        <label for="titles">Book titles</label>
+        <textarea id="titles" rows="9">Dune
 Pride and Prejudice
 The Left Hand of Darkness
 Invisible Cities
 Beloved
 The Hobbit</textarea>
 
-      <div class="row">
-        <div>
-          <label for="size">Bundle size</label>
-          <input id="size" type="number" min="1" value="3" />
+        <div class="row">
+          <div>
+            <label for="size">Bundle size</label>
+            <input id="size" type="number" min="1" value="3" />
+          </div>
+          <button id="generate" class="btn" type="button">Generate bundle</button>
         </div>
-        <div style="align-self:end;">
-          <button id="generate" type="button">Generate bundle</button>
-        </div>
-      </div>
 
-      <div class="result" id="result" aria-live="polite"></div>
+        <div class="result" id="result" aria-live="polite"></div>
+      </article>
+
+      <aside class="card" aria-labelledby="signup-title">
+        <h2 id="signup-title">Stay in the loop</h2>
+        <p class="note">Get updates when new bundle ideas and reading prompts are published.</p>
+
+        <form id="interest-form" class="signup-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <label for="name">Name (optional)</label>
+          <input id="name" name="name" type="text" autocomplete="name" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+
+          <div class="hidden-trap" aria-hidden="true">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <input type="hidden" name="_subject" value="New bookbundling interest signup" />
+
+          <button id="signup-btn" class="btn" type="submit">Notify me</button>
+        </form>
+
+        <p id="signup-status" class="status" role="status" aria-live="polite"></p>
+        <p class="tiny">Setup note: replace <code>YOUR_FORM_ID</code> in the form action with your real Formspree form ID.</p>
+      </aside>
     </section>
   </main>
 
@@ -109,6 +252,10 @@ The Hobbit</textarea>
     const sizeInput = document.getElementById("size");
     const resultEl = document.getElementById("result");
     const generateBtn = document.getElementById("generate");
+
+    const interestForm = document.getElementById("interest-form");
+    const signupBtn = document.getElementById("signup-btn");
+    const signupStatus = document.getElementById("signup-status");
 
     const shuffleCopy = (arr) => {
       const copy = arr.slice();
@@ -152,6 +299,58 @@ The Hobbit</textarea>
       });
       resultEl.appendChild(list);
     }
+
+    function setStatus(message, kind) {
+      signupStatus.textContent = message;
+      signupStatus.className = "status";
+      if (kind) signupStatus.classList.add(kind);
+    }
+
+    interestForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const trapValue = interestForm.querySelector("#company").value;
+      if (trapValue) {
+        setStatus("Thanks!", "ok");
+        return;
+      }
+
+      const email = interestForm.email.value.trim();
+      if (!email) {
+        setStatus("Please enter your email.", "err");
+        return;
+      }
+
+      const action = interestForm.getAttribute("action") || "";
+      if (action.includes("YOUR_FORM_ID")) {
+        setStatus("Form is not configured yet. Replace YOUR_FORM_ID with your Formspree ID.", "err");
+        return;
+      }
+
+      try {
+        signupBtn.disabled = true;
+        signupBtn.textContent = "Sending…";
+        setStatus("", "");
+
+        const response = await fetch(action, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(interestForm)
+        });
+
+        if (response.ok) {
+          interestForm.reset();
+          setStatus("Thanks — you're on the list.", "ok");
+        } else {
+          setStatus("Something went wrong. Please try again in a moment.", "err");
+        }
+      } catch (err) {
+        setStatus("Network issue. Please try again.", "err");
+      } finally {
+        signupBtn.disabled = false;
+        signupBtn.textContent = "Notify me";
+      }
+    });
 
     generateBtn.addEventListener("click", renderBundle);
     renderBundle();
