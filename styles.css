@@ -37,6 +37,7 @@ body {
   background: radial-gradient(ellipse at top center, #fff8ef 0%, var(--paper) 60%);
   color: var(--ink);
   line-height: 1.6;
+  min-height: 100vh;
   min-height: 100dvh;
 }
 
@@ -328,7 +329,7 @@ li {
 }
 
 .tiny code {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, Menlo, monospace;
   font-size: 0.85em;
   background: rgba(111, 78, 55, 0.08);
   color: var(--accent-strong);
