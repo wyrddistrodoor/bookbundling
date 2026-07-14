@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>bookbundling — commit #1</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f4ef;
+      --fg: #1d1d1d;
+      --accent: #5a3d2b;
+      --card: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #151515;
+        --fg: #ececec;
+        --accent: #d8ab8c;
+        --card: #222;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.4;
+    }
+    main {
+      max-width: 760px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(128, 128, 128, 0.3);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    h1 { margin: 0 0 0.5rem; }
+    p { margin: 0.5rem 0 1rem; }
+    label { display: block; margin: 0.75rem 0 0.35rem; font-weight: 600; }
+    textarea, input, button {
+      width: 100%;
+      font: inherit;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(128, 128, 128, 0.35);
+      background: transparent;
+      color: inherit;
+    }
+    .row {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 0.75rem;
+    }
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+    }
+    ul { margin: 0.75rem 0 0; padding-left: 1.1rem; }
+    .result { margin-top: 1rem; }
+    .tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(128, 128, 128, 0.4);
+      padding: 0.2rem 0.6rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <h1>bookbundling <span class="tag">commit #1</span></h1>
+      <p>Paste book titles, choose a bundle size, and generate a random bundle.</p>
+
+      <label for="titles">Book titles (one per line)</label>
+      <textarea id="titles" rows="8">Dune
+Pride and Prejudice
+The Left Hand of Darkness
+Invisible Cities
+Beloved
+The Hobbit</textarea>
+
+      <div class="row">
+        <div>
+          <label for="size">Bundle size</label>
+          <input id="size" type="number" min="1" value="3" />
+        </div>
+        <div style="align-self:end;">
+          <button id="generate" type="button">Generate bundle</button>
+        </div>
+      </div>
+
+      <div class="result" id="result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const titlesInput = document.getElementById("titles");
+    const sizeInput = document.getElementById("size");
+    const resultEl = document.getElementById("result");
+    const generateBtn = document.getElementById("generate");
+
+    const shuffleCopy = (arr) => {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    };
+
+    const parseTitles = () =>
+      titlesInput.value
+        .split("\n")
+        .map((t) => t.trim())
+        .filter(Boolean);
+
+    function renderBundle() {
+      resultEl.textContent = "";
+      const titles = parseTitles();
+      const requested = Number(sizeInput.value) || 1;
+
+      if (!titles.length) {
+        const message = document.createElement("p");
+        message.textContent = "Add at least one title to build a bundle.";
+        resultEl.appendChild(message);
+        return;
+      }
+
+      const size = Math.max(1, Math.min(requested, titles.length));
+      const selected = shuffleCopy(titles).slice(0, size);
+
+      const intro = document.createElement("p");
+      intro.textContent = `A bundle of ${selected.length} book${selected.length === 1 ? "" : "s"}.`;
+      resultEl.appendChild(intro);
+
+      const list = document.createElement("ul");
+      selected.forEach((title) => {
+        const item = document.createElement("li");
+        item.textContent = title;
+        list.appendChild(item);
+      });
+      resultEl.appendChild(list);
+    }
+
+    generateBtn.addEventListener("click", renderBundle);
+    renderBundle();
+  </script>
+</body>
+</html>
